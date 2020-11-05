@@ -1,4 +1,4 @@
-# EdmondTaigneJourney
+# Edmond Taigne Journey
 
 Edmond Taigne Journey est un jeu réalisé à l'occasion du Game Off organisé par Github. 
 
