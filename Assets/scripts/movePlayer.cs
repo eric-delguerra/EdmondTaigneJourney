@@ -1,53 +1,63 @@
 ﻿using System;
 using UnityEngine;
 
-public class movePlayer : MonoBehaviour
+public class MovePlayer : MonoBehaviour
 {
     public float moveSpeed;
     public float jumpForce;
     public bool isJumping;
     public bool isGrounded;
-    bool alignPosition = true;
+    private bool _alignPosition = true;
+    private float horizontalMove;
+    public float gravityScale;
+    private bool _canPlane;
 
     public SpriteRenderer sp;
-    public Transform groundCheckLeft;
-    public Transform groundCheckRight;
+    public Transform groundCheck;
+    public float groundCheckRadius;
+    public LayerMask collisionLayer;
     
     public Rigidbody2D rb;
     
-    private Vector3 velocity = Vector3.zero;
-    
-    void Start()
-    {
-        
-    }
+    private Vector3 _velocity = Vector3.zero;
 
     private void Update()
-    {
-        MoveDirection(rb.velocity.x);
-    }
-
-    void FixedUpdate()
-    {
-        isGrounded = Physics2D.OverlapArea(groundCheckLeft.position, groundCheckRight.position);
+    {   
         
-        float horizontalMove = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
-
-
-        sp.flipX = alignPosition;
-
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
-            isJumping = true;
+                isJumping = true;
+                _canPlane = true;
         }
+        MoveDirection(rb.velocity.x);
+        sp.flipX = _alignPosition;
         
-        playerMove(horizontalMove);
+        
+        if (_canPlane && Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log("plane");
+            Plane();
+        }
+        else if (_canPlane && Input.GetKeyUp(KeyCode.Space))
+        {
+            rb.gravityScale = 1f;
+        }
     }
 
-    void playerMove(float _horizontaleMove)
+    // Plus pour la gestion de la physique et pas d'entrée d'input
+    void FixedUpdate()
+    {
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, collisionLayer);
+        horizontalMove = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
+        PlayerMove(horizontalMove);
+
+      
+    }
+
+    void PlayerMove(float _horizontaleMove)
     {
         Vector3 targetVelocity = new Vector2(_horizontaleMove, rb.velocity.y);
-        rb.velocity = Vector3.SmoothDamp(rb.velocity, targetVelocity, ref velocity, .05f);
+        rb.velocity = Vector3.SmoothDamp(rb.velocity, targetVelocity, ref _velocity, .05f);
 
         if (isJumping)
         {
@@ -56,15 +66,26 @@ public class movePlayer : MonoBehaviour
         }
     }
 
-    void MoveDirection(float num)
+    void Plane()
     {
-        if (num < 0f)
+        rb.gravityScale = gravityScale;
+    }
+    
+    void MoveDirection(float _num)
+    {
+        if (_num > 0.1f)
         {
-            alignPosition = true;
+            _alignPosition = false;
         }
-        else
+        else if (_num < -0.1f)
         {
-            alignPosition = false;
+            _alignPosition = true;
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
     }
 }
