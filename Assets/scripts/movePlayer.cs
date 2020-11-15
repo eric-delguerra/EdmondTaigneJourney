@@ -55,6 +55,7 @@ public class MovePlayer : MonoBehaviour
         }
         else if (_canPlane && Input.GetKeyUp(KeyCode.Space))
         {
+            animator.SetBool("IsFlying", false);
             rb.gravityScale = 1f;
         }
     }
@@ -71,7 +72,7 @@ public class MovePlayer : MonoBehaviour
     public void OnLanding()
     {
         animator.SetBool("IsJumping", false);
-
+        animator.SetBool("IsFlying", false);
     }
     
     void PlayerMove(float horizontaleMove)
@@ -90,6 +91,7 @@ public class MovePlayer : MonoBehaviour
 
     void Plane()
     {
+        animator.SetBool("IsFlying", true);
         rb.gravityScale = gravityScale;
     }
     
@@ -107,9 +109,9 @@ public class MovePlayer : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
-    }
+    // private void OnDrawGizmos()
+    // {
+    //     Gizmos.color = Color.red;
+    //     Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+    // }
 }
