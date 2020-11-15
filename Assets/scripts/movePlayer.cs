@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class MovePlayer : MonoBehaviour
 {
@@ -16,26 +17,40 @@ public class MovePlayer : MonoBehaviour
     public Transform groundCheck;
     public float groundCheckRadius;
     public LayerMask collisionLayer;
+    public Animator animator;
+    public UnityEvent OnLandEvent;
     
     public Rigidbody2D rb;
     
     private Vector3 _velocity = Vector3.zero;
 
+    private void Awake()
+    {
+        if (OnLandEvent == null)
+        {
+            OnLandEvent = new UnityEvent();
+        }
+    }
+
     private void Update()
     {   
-        
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
                 isJumping = true;
                 _canPlane = true;
         }
+
+        if (isGrounded && rb.velocity.y < 0)
+        {
+            OnLandEvent.Invoke();
+        }
+        
         MoveDirection(rb.velocity.x);
         sp.flipX = _alignPosition;
         
         
         if (_canPlane && Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log("plane");
             Plane();
         }
         else if (_canPlane && Input.GetKeyUp(KeyCode.Space))
@@ -50,20 +65,27 @@ public class MovePlayer : MonoBehaviour
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, collisionLayer);
         horizontalMove = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
         PlayerMove(horizontalMove);
-
-      
+        
     }
 
-    void PlayerMove(float _horizontaleMove)
+    public void OnLanding()
     {
-        Vector3 targetVelocity = new Vector2(_horizontaleMove, rb.velocity.y);
+        animator.SetBool("IsJumping", false);
+
+    }
+    
+    void PlayerMove(float horizontaleMove)
+    {
+        Vector3 targetVelocity = new Vector2(horizontaleMove, rb.velocity.y);
         rb.velocity = Vector3.SmoothDamp(rb.velocity, targetVelocity, ref _velocity, .05f);
 
         if (isJumping)
         {
+            animator.SetBool("IsJumping", true);
             rb.AddForce(new Vector2(0f, jumpForce));
             isJumping = false;
         }
+        
     }
 
     void Plane()
@@ -71,13 +93,15 @@ public class MovePlayer : MonoBehaviour
         rb.gravityScale = gravityScale;
     }
     
-    void MoveDirection(float _num)
+    void MoveDirection(float num)
     {
-        if (_num > 0.1f)
+        animator.SetFloat("Speed", Mathf.Abs(num));
+
+        if (num > 0.1f)
         {
             _alignPosition = false;
         }
-        else if (_num < -0.1f)
+        else if (num < -0.1f)
         {
             _alignPosition = true;
         }

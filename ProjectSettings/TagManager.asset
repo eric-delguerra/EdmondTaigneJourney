@@ -6,6 +6,7 @@ TagManager:
   tags:
   - HideObject
   - CanHide
+  - PlayerSpawn
   layers:
   - Default
   - TransparentFX
