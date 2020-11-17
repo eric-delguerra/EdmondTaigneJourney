@@ -13,6 +13,7 @@ public class MovePlayer : MonoBehaviour
     public float gravityScale;
     private bool _canPlane;
 
+    public ParticleSystem particleSystem;
     public SpriteRenderer sp;
     public Transform groundCheck;
     public float groundCheckRadius;

@@ -11,7 +11,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/scripts/LoadScene.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/scripts/CameraFollow.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/scripts/DontDestroyOnLoadScreen.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -26,8 +28,14 @@
         <option value="$PROJECT_DIR$/Assets/scripts/EnemyPatrol.cs" />
         <option value="$PROJECT_DIR$/Assets/scripts/PlayerHealth.cs" />
         <option value="$PROJECT_DIR$/Assets/HidePlayer.cs" />
-        <option value="$PROJECT_DIR$/Assets/scripts/MovePlayer.cs" />
+        <option value="$PROJECT_DIR$/Assets/Parallax.cs" />
+        <option value="$PROJECT_DIR$/Assets/PlayerSpawn.cs" />
+        <option value="$PROJECT_DIR$/Assets/DeathZone.cs" />
+        <option value="$PROJECT_DIR$/Assets/scripts/Plugins/AnimatedTile.cs" />
+        <option value="$PROJECT_DIR$/Assets/scripts/DontDestroyOnLoadScreen.cs" />
         <option value="$PROJECT_DIR$/Assets/scripts/HidePlayer.cs" />
+        <option value="$PROJECT_DIR$/Assets/scripts/LoadScene.cs" />
+        <option value="$PROJECT_DIR$/Assets/scripts/MovePlayer.cs" />
       </list>
     </option>
   </component>
@@ -75,6 +83,10 @@
       <workItem from="1604744497667" duration="372000" />
       <workItem from="1604745020136" duration="7940000" />
       <workItem from="1604828848312" duration="7786000" />
+      <workItem from="1605283587834" duration="3223000" />
+      <workItem from="1605376722352" duration="2775000" />
+      <workItem from="1605450692478" duration="6762000" />
+      <workItem from="1605611041146" duration="664000" />
     </task>
     <servers />
   </component>
@@ -85,5 +97,11 @@
   <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1605378126325">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1605378126325" />
   </component>
 </project>
